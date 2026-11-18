@@ -16,7 +16,7 @@ typedef struct ListaInscritos {
 
 void lista_inicializar(ListaInscritos *lista);
 void lista_destruir(ListaInscritos *lista);
-int lista_inserir_fim(ListaInscritos *lista, int matricula, const char *nome);
+int lista_inserir_fim(ListaInscritos *lista, FilaEspera *espera, int matricula, const char *nome);
 int lista_remover_por_matricula(ListaInscritos *lista, int matricula);
 NoEstudante* lista_buscar_matricula(const ListaInscritos *lista, int matricula);
 

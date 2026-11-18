@@ -1,0 +1,12 @@
+{
+"versao": "x",
+"equipe": "EQ01",
+"integrantes": [
+{"nome": "Erick Carneiro de Oliveira Rocha", "matricula": "12345678", "participacao_percentual": 33}, 
+{"nome": "Davi Dias Fernandes", "matricula": "12345678", "participacao_percentual": 33}, 
+{"nome": "Antônio Carlos Aragão", "matricula": "12345678", "participacao_percentual": 33}
+],
+"linguagem": "C11",
+"compilar": "make",
+"executar": "./bin/eventos"
+}

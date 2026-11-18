@@ -55,3 +55,21 @@ int atividade_buscar_aluno(const Atividade *act, int matricula) {
 
     return 0; // Não encontrou em nenhuma das duas estruturas
 }
+
+int atividade_aumentar_capacidade(const Atividade *atividade, int aumento){
+    if(aumento <= 0){
+        return 0; //Falha de parâmetro, aumento deve ser positivo
+    }
+
+    atividade->capacidade += aumento;
+
+    for(int i = 0; i < aumento; i++){
+        int matricula;
+        char *nome;
+        fila_desenfileirar(atividade->espera; &matricula; nome);
+        lista_inserir_fim(atividade->inscritos; matricula; nome);
+    }
+
+    return 1; // Sucesso!
+
+}

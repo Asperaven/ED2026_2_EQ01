@@ -21,10 +21,13 @@ void fila_destruir(FilaEspera *fila) {
   fila->fim = NULL;
 }
 
-// Enfileira um estudante (insere no fim). O parâmetro posicao_out armazena a
-// posição em que o aluno entrou.
-int fila_enfileirar(FilaEspera *fila, int matricula, const char *nome,
-                    int *posicao_out) {
+// Enfileira um estudante (insere no fim). O parâmetro posicao_out armazena a posição em que o aluno entrou.
+int fila_enfileirar(FilaEspera *fila, int matricula, const char *nome) {
+  if(fila_buscar_matricula(espera, matricula)){
+    // Matrícula já existe na fila, não insere duplicata
+    return 0;
+  }
+  
   NoEstudante *novo = (NoEstudante *)malloc(sizeof(NoEstudante));
   if (novo == NULL)
     return 0; // Falha de alocação de memória.
@@ -34,29 +37,17 @@ int fila_enfileirar(FilaEspera *fila, int matricula, const char *nome,
   novo->nome[sizeof(novo->nome) - 1] = '\0';
   novo->prox = NULL;
 
-  int pos = 1;
   if (fila->inicio == NULL) {
     fila->inicio = novo;
     fila->fim = novo;
   } else {
-    // Conta os elementos existentes apenas para definir a posição (posicao_out)
-    NoEstudante *temp = fila->inicio;
-    while (temp != NULL) {
-      pos++;
-      temp = temp->prox;
-    }
     fila->fim->prox = novo;
     fila->fim = novo;
-  }
-
-  if (posicao_out != NULL) {
-    *posicao_out = pos;
   }
   return 1;
 }
 
-// Desenfileira o primeiro estudante (para promoção). Complexidade esperada:
-// O(1) (Seção 9).
+// Desenfileira o primeiro estudante (para promoção). Complexidade esperada: O(1) (Seção 9).
 int fila_desenfileirar(FilaEspera *fila, int *matricula_out, char *nome_out) {
   if (fila->inicio == NULL)
     return 0; // Fila vazia, não é possível remover.

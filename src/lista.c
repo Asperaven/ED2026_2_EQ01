@@ -1,4 +1,5 @@
 #include "lista.h"
+#include "fila.h"
 #include <stdlib.h>
 #include <string.h> // Necessário para strncpy, perguntar ao professor se é considerada uma "biblioteca externa"
 
@@ -22,10 +23,21 @@ void lista_destruir(ListaInscritos *lista) {
 }
 
 // Insere um estudante no fim da lista. Complexidade esperada: O(1) devido ao uso do ponteiro 'fim' (Seção 9).
-int lista_inserir_fim(ListaInscritos *lista, int matricula, const char *nome) {
+int lista_inserir_fim(Atividade *atividade, int matricula, const char *nome) {
+  if (lista_buscar_matricula(atividade->inscritos, matricula)) {
+    // Matrícula já existe na lista, não insere duplicata
+    return 0;
+  }
+
+  if(atividade->qtdInscritos >= atividade->capacidade){
+    fila_enfileirar(atividade->espera, matricula, nome);
+    return
+  }
+
   NoEstudante *novo = (NoEstudante *)malloc(sizeof(NoEstudante));
-  if (novo == NULL)
+  if (novo == NULL) {
     return 0; // Falha na alocação de memória
+  }
 
   novo->matricula = matricula;
   strncpy(novo->nome, nome, sizeof(novo->nome) - 1);
@@ -41,6 +53,7 @@ int lista_inserir_fim(ListaInscritos *lista, int matricula, const char *nome) {
     lista->fim->prox = novo;
     lista->fim = novo;
   }
+  atividade->qtdInscritos++;
   return 1;
 }
 

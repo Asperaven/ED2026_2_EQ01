@@ -21,4 +21,6 @@ void atividade_destruir(Atividade *act);
 
 int atividade_buscar_aluno(const Atividade *act, int matricula);
 
+int atividade_aumentar_capacidade(const Atividade *atividade, int aumento);
+
 #endif 
